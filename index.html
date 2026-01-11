@@ -794,6 +794,85 @@
                 </button>
             </div>
         </div>
+
+        <!-- SÉPARATEUR STYLÉ -->
+        <div class="quiz-separator">
+            <span>🎮 OU 🎮</span>
+        </div>
+
+        <!-- QUIZ PRIVATE (Squad) -->
+        <div class="quiz-container" id="private-container" style="background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(30, 10, 40, 0.95) 100%); border: 3px solid rgba(138, 43, 226, 0.5);">
+            <!-- PAGE D'ACCUEIL -->
+            <div class="home-page" id="homePagePrivate" style="background: linear-gradient(180deg, rgba(138, 43, 226, 0.1) 0%, transparent 100%);">
+                <div class="anime-icon">🎮</div>
+                <h1 style="background: linear-gradient(135deg, #8A2BE2 0%, #FF1493 50%, #8A2BE2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">Qui es-tu dans la Squad ?</h1>
+                <p class="subtitle" style="color: #FF1493;">Découvre quel membre légendaire du groupe tu incarnes !</p>
+                
+                <div class="info-box" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(255, 20, 147, 0.3) 100%); border: 2px solid rgba(138, 43, 226, 0.4);">
+                    <h3 style="color: #FF1493;">🔥 Private Jokes Only</h3>
+                    <ul>
+                        <li>Réponds sincèrement (ou pas)</li>
+                        <li>Assume tes private jokes</li>
+                        <li>Découvre qui tu es vraiment</li>
+                        <li>Roast tes potes avec le résultat !</li>
+                    </ul>
+                </div>
+
+                <button class="btn" onclick="startQuiz('private')" style="background: linear-gradient(135deg, #8A2BE2 0%, #FF1493 50%, #8A2BE2 100%);">
+                    Découvrir mon Alter Ego 🎮
+                </button>
+            </div>
+
+            <!-- PAGE DE QUESTIONNAIRE -->
+            <div class="quiz-page" id="quizPagePrivate" style="display: none; background: linear-gradient(180deg, rgba(138, 43, 226, 0.05) 0%, transparent 100%);">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBarPrivate" style="background: linear-gradient(90deg, #8A2BE2 0%, #FF1493 50%, #8A2BE2 100%); background-size: 200% 100%;"></div>
+                </div>
+                
+                <div class="question-counter" id="questionCounterPrivate" style="color: #FF1493;">
+                    Question 1 sur 7
+                </div>
+                
+                <h2 class="question-text" id="questionTextPrivate" style="color: #FF1493;">
+                    La question apparaîtra ici
+                </h2>
+                
+                <div class="answers" id="answersContainerPrivate">
+                    <!-- Les réponses seront générées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- PAGE DE RÉSULTAT -->
+            <div class="result-page" id="resultPagePrivate" style="display: none; background: linear-gradient(180deg, rgba(138, 43, 226, 0.1) 0%, transparent 100%);">
+                <h2 style="color: #FF1493; margin-bottom: 20px;">🎉 Tu es :</h2>
+                
+                <div class="result-character" id="resultCharacterPrivate">
+                    <!-- Emoji du personnage -->
+                </div>
+                
+                <div class="result-name" id="resultNamePrivate" style="background: linear-gradient(135deg, #8A2BE2 0%, #FF1493 50%, #8A2BE2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                    <!-- Nom du personnage -->
+                </div>
+                
+                <div class="result-description" id="resultDescriptionPrivate">
+                    <!-- Description -->
+                </div>
+                
+                <div class="result-traits" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(255, 20, 147, 0.2) 100%); border: 2px solid rgba(138, 43, 226, 0.3);">
+                    <h3 style="color: #FF1493;">🔥 Tes caractéristiques :</h3>
+                    <div class="trait-list" id="traitListPrivate">
+                        <!-- Traits du personnage -->
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="restartQuiz('private')" style="background: linear-gradient(135deg, #8A2BE2 0%, #FF1493 50%, #8A2BE2 100%);">
+                    Recommencer 🔄
+                </button>
+                <button class="btn btn-secondary" onclick="shareResult()" style="background: linear-gradient(135deg, rgba(138, 43, 226, 0.8) 0%, rgba(255, 20, 147, 0.8) 100%); border: 3px solid #FF1493; color: #FF1493;">
+                    Partager 📤
+                </button>
+            </div>
+        </div>
     </div>
 
     <script>
@@ -1006,6 +1085,149 @@
             }
         };
 
+        // QUESTIONS PRIVATE QUIZ (Système de citations = points max)
+        const questionsPrivate = [
+            {
+                question: "Ton jeu préféré :",
+                answers: [
+                    { text: "League of Legends", points: { draghon: 1, sunshye: 1 } },
+                    { text: "Rocket League", points: { plume: 1 } },
+                    { text: "Minecraft", points: { draghon: 1, sunshye: 1, endergold: 1, nicknack: 1, omgrr: 1, lionours: 1 } },
+                    { text: "Red Dead Redemption 2", points: { telou: 1 } },
+                    { text: "Elden Ring", points: { golden: 1, telou: 1 } },
+                    { text: "Marvel's Spider-Man 2", points: { omgrr: 1 } },
+                    { text: "Wakfu", points: { draghon: 1 } },
+                    { text: "Valorant", points: { nicknack: 1 } },
+                    { text: "Palworld", points: { sieurking: 1 } },
+                    { text: "Sea of Thieves", points: { sieurking: 1 } }
+                ]
+            },
+            {
+                question: "Ton trait de caractère dominant :",
+                answers: [
+                    { text: "Gentil", points: { endergold: 1, golden: 1, telou: 1, nicknack: 1, lionours: 1 } },
+                    { text: "Fier", points: { sieurking: 1, draghon: 1, endergold: 1, sunshye: 1, omgrr: 1, lionours: 1 } },
+                    { text: "Ragebaiter", points: { plume: 1, omgrr: 1 } },
+                    { text: "Manipulateur", points: { sieurking: 1, plume: 1, telou: 1 } },
+                    { text: "Tilté", points: { sunshye: 1, nicknack: 1 } },
+                    { text: "Susceptible", points: { sieurking: 1, sunshye: 1, telou: 1 } },
+                    { text: "Calme", points: { plume: 1, endergold: 1, golden: 1, lionours: 1 } },
+                    { text: "Menteur", points: { plume: 1, omgrr: 1 } },
+                    { text: "Orgueilleux", points: { sieurking: 1, draghon: 1 } },
+                    { text: "« Suce-boule »", points: {} }
+                ]
+            },
+            {
+                question: "Est-ce que tu t'es déjà embrouillé avec Sieurking ?",
+                answers: [
+                    { text: "Oui", points: { sieurking: 1, draghon: 1, plume: 1, sunshye: 1, telou: 1, omgrr: 1, lionours: 1 } },
+                    { text: "Pas encore", points: { endergold: 1, golden: 1, nicknack: 1 } }
+                ]
+            },
+            {
+                question: "Ton niveau en Minecraft PvP :",
+                answers: [
+                    { text: "Meilleur que Draghon", points: { draghon: 1, nicknack: 1 } },
+                    { text: "En dessous de Draghon", points: { sieurking: 1, plume: 1, sunshye: 1, endergold: 1, golden: 1, telou: 1, omgrr: 1, lionours: 1 } }
+                ]
+            },
+            {
+                question: "As-tu fini Elden Ring (Radagon battu) ?",
+                answers: [
+                    { text: "Oui", points: { sieurking: 1, golden: 1, telou: 1 } },
+                    { text: "Non", points: { draghon: 1, plume: 1, sunshye: 1, endergold: 1, nicknack: 1, omgrr: 1, lionours: 1 } }
+                ]
+            },
+            {
+                question: "Sélectionne la phrase qui te représente le plus :",
+                answers: [
+                    { text: "« Je suis communiste ! Bernard Arnault, je t'aurai !!! »", points: { endergold: 10 } },
+                    { text: "« I'm Lion, Sin of Pride… Escanor. »", points: { lionours: 10 } },
+                    { text: "« Sieurking, tu es le plus gros forceur que je connaisse. »", points: { sunshye: 10 } },
+                    { text: "« Tu m'en veux ? »", points: { telou: 10 } },
+                    { text: "« Les gars je reviens, je me mute. »", points: { plume: 10 } },
+                    { text: "« La CB 12 ! J'ai préparé votre commande. »", points: { nicknack: 10 } },
+                    { text: "« Avec tout le respect, au nom de Zeus. »", points: { draghon: 10 } },
+                    { text: "« JE SUIS MEILLEUR. »", points: { sieurking: 10 } },
+                    { text: "« J'ai no-hit tous les boss d'Elden Ring first try. »", points: { golden: 10 } },
+                    { text: "« Les citations de Madara je bande dessus »", points: { omgrr: 10 } }
+                ]
+            },
+            {
+                question: "Ton niveau en développement :",
+                answers: [
+                    { text: "Sieurking tier (0)", points: { sieurking: 1, golden: 1, telou: 1, lionours: 1 } },
+                    { text: "Plume tier (ChatGPT)", points: { plume: 1, endergold: 1 } },
+                    { text: "Élève de Draghon", points: { omgrr: 1 } },
+                    { text: "Draghon tier", points: { draghon: 1, sunshye: 1, nicknack: 1 } }
+                ]
+            }
+        ];
+
+        // PERSONNAGES PRIVATE QUIZ
+        const charactersPrivate = {
+            sieurking: {
+                name: "Sieurking",
+                emoji: "👑",
+                description: "Tu es le roi de la provoc ! Entre tes embrouilles légendaires et ton niveau dev de 0, tu es la légende vivante du serveur. JE SUIS MEILLEUR.",
+                traits: ["Ragebaiter assumé", "S'embrouille avec tout le monde", "Dev tier 0", "Orgueilleux"]
+            },
+            draghon: {
+                name: "Draghon",
+                emoji: "🐉",
+                description: "Tu es le tryhard ultime ! Meilleur en PvP, dev tier god, tu domines tout. Avec tout le respect, au nom de Zeus, personne ne t'arrive à la cheville.",
+                traits: ["PvP god tier", "Dev master", "Fier et orgueilleux", "Multi-jeux"]
+            },
+            plume: {
+                name: "Plume",
+                emoji: "🪶",
+                description: "Tu es le mec qui mute tout le temps ! ChatGPT est ton meilleur ami en dev, et tu rage bait comme personne. Les gars je reviens, je me mute.",
+                traits: ["ChatGPT user", "Ragebaiter", "Se mute souvent", "Manipulateur discret"]
+            },
+            sunshye: {
+                name: "Sunshye",
+                emoji: "☀️",
+                description: "Tu es le forceur officiel ! Fier, tilté, et susceptible, tu n'hésites jamais à dire les choses. Sieurking, tu es le plus gros forceur que je connaisse.",
+                traits: ["Forceur assumé", "Tilté facilement", "Susceptible", "Direct"]
+            },
+            endergold: {
+                name: "Endergold",
+                emoji: "💎",
+                description: "Tu es le communiste du serveur ! Gentil et calme, mais révolutionnaire dans l'âme. Je suis communiste ! Bernard Arnault, je t'aurai !!!",
+                traits: ["Communiste militant", "Gentil", "Calme", "ChatGPT tier"]
+            },
+            golden: {
+                name: "Golden",
+                emoji: "✨",
+                description: "Tu es le fake tryhard ! Tu prétends avoir no-hit tous les boss d'Elden Ring first try, mais on sait tous la vérité. Gentil mais orgueilleux.",
+                traits: ["Menteur assumé", "Elden Ring flexer", "Dev tier 0", "Gentil au fond"]
+            },
+            telou: {
+                name: "Telou",
+                emoji: "🎮",
+                description: "Tu es le susceptible du groupe ! Toujours à demander 'Tu m'en veux ?', gentil mais facilement vexé. Fan de RDR2 et manipulateur discret.",
+                traits: ["Susceptible", "Gentil", "Manipulateur", "Fan RDR2"]
+            },
+            nicknack: {
+                name: "Nicknack",
+                emoji: "🍔",
+                description: "Tu es l'employé McDo ! La CB 12 ! J'ai préparé votre commande. Gentil, tilté, et meilleur que Draghon en PvP (dans tes rêves).",
+                traits: ["Employé McDo", "Gentil", "Tilté", "Dev tier god (comme Draghon)"]
+            },
+            omgrr: {
+                name: "Omgrr",
+                emoji: "🔥",
+                description: "Tu es le fan de Madara ! Les citations de Madara te font bander, tu rage bait et tu mens comme tu respires. Élève de Draghon en dev.",
+                traits: ["Fan de Madara", "Ragebaiter", "Menteur", "Élève de Draghon"]
+            },
+            lionours: {
+                name: "Lionours",
+                emoji: "🦁",
+                description: "Tu es Escanor incarné ! I'm Lion, Sin of Pride… Escanor. Fier, orgueilleux, gentil, et fan absolu de Minecraft. Le roi du pride.",
+                traits: ["Escanor fan", "Fier", "Orgueilleux", "Minecraft lover"]
+            }
+        };
+
         // QUESTIONS SEVEN DEADLY SINS (mélangées pour éviter pattern, 5 réponses)
         const questionsSevensins = [
             {
@@ -1204,11 +1426,16 @@
                 document.getElementById('homePage').style.display = 'none';
                 document.getElementById('quizPage').style.display = 'block';
                 document.getElementById('quizPage').classList.add('fade-in');
-            } else {
+            } else if (quizType === 'sevensins') {
                 document.getElementById('homePageSins').style.display = 'none';
                 document.getElementById('quizPageSins').style.display = 'block';
                 document.getElementById('quizPageSins').classList.add('fade-in');
                 document.body.className = 'seven-sins';
+            } else if (quizType === 'private') {
+                document.getElementById('homePagePrivate').style.display = 'none';
+                document.getElementById('quizPagePrivate').style.display = 'block';
+                document.getElementById('quizPagePrivate').classList.add('fade-in');
+                document.body.className = 'blue-lock'; // Garde le style blue-lock
             }
             
             showQuestion();
@@ -1216,9 +1443,12 @@
 
         // Afficher une question
         function showQuestion() {
-            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+            const questions = currentQuiz === 'bluelock' ? questionsBluelock : 
+                            currentQuiz === 'sevensins' ? questionsSevensins : 
+                            questionsPrivate;
             const question = questions[currentQuestion];
-            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : 
+                          currentQuiz === 'private' ? 'Private' : '';
             
             document.getElementById('questionText' + suffix).textContent = question.question;
             document.getElementById('questionCounter' + suffix).textContent = 
@@ -1237,13 +1467,21 @@
                 btn.className = 'answer-btn';
                 btn.textContent = answer.text;
                 btn.onclick = () => selectAnswer(index);
+                
+                // Style spécial pour le quiz privé
+                if (currentQuiz === 'private') {
+                    btn.style.background = 'linear-gradient(135deg, rgba(138, 43, 226, 0.2) 0%, rgba(255, 20, 147, 0.2) 100%)';
+                    btn.style.borderColor = 'rgba(138, 43, 226, 0.4)';
+                }
+                
                 container.appendChild(btn);
             });
         }
 
         // Sélectionner une réponse
         function selectAnswer(answerIndex) {
-            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : 
+                          currentQuiz === 'private' ? 'Private' : '';
             const container = document.getElementById('answersContainer' + suffix);
             const buttons = container.getElementsByClassName('answer-btn');
             
@@ -1253,7 +1491,9 @@
                 
                 // Petit délai pour voir l'animation
                 setTimeout(() => {
-                    const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+                    const questions = currentQuiz === 'bluelock' ? questionsBluelock : 
+                                    currentQuiz === 'sevensins' ? questionsSevensins : 
+                                    questionsPrivate;
                     answers.push(questions[currentQuestion].answers[answerIndex].points);
                     currentQuestion++;
                     
@@ -1268,8 +1508,11 @@
 
         // Calculer et afficher le résultat
         function showResult() {
-            const characters = currentQuiz === 'bluelock' ? charactersBluelock : charactersSevensins;
-            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const characters = currentQuiz === 'bluelock' ? charactersBluelock : 
+                             currentQuiz === 'sevensins' ? charactersSevensins : 
+                             charactersPrivate;
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : 
+                          currentQuiz === 'private' ? 'Private' : '';
             
             // Calculer les scores
             const scores = {};
@@ -1296,10 +1539,14 @@
                 document.getElementById('quizPage').style.display = 'none';
                 document.getElementById('resultPage').style.display = 'block';
                 document.getElementById('resultPage').classList.add('fade-in');
-            } else {
+            } else if (currentQuiz === 'sevensins') {
                 document.getElementById('quizPageSins').style.display = 'none';
                 document.getElementById('resultPageSins').style.display = 'block';
                 document.getElementById('resultPageSins').classList.add('fade-in');
+            } else if (currentQuiz === 'private') {
+                document.getElementById('quizPagePrivate').style.display = 'none';
+                document.getElementById('resultPagePrivate').style.display = 'block';
+                document.getElementById('resultPagePrivate').classList.add('fade-in');
             }
             
             document.getElementById('resultCharacter' + suffix).textContent = character.emoji;
@@ -1313,11 +1560,17 @@
                 const div = document.createElement('div');
                 div.className = 'trait-item';
                 div.textContent = trait;
+                
+                // Style spécial pour le quiz privé
+                if (currentQuiz === 'private') {
+                    div.style.background = 'linear-gradient(135deg, rgba(138, 43, 226, 0.3) 0%, rgba(255, 20, 147, 0.3) 100%)';
+                    div.style.borderLeftColor = '#FF1493';
+                }
+                
                 traitList.appendChild(div);
             });
             
             // Mettre la barre de progression à 100%
-            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
             document.getElementById('progressBar' + suffix).style.width = '100%';
         }
 
@@ -1327,18 +1580,25 @@
                 document.getElementById('resultPage').style.display = 'none';
                 document.getElementById('homePage').style.display = 'block';
                 document.getElementById('homePage').classList.add('fade-in');
-            } else {
+            } else if (quizType === 'sevensins') {
                 document.getElementById('resultPageSins').style.display = 'none';
                 document.getElementById('homePageSins').style.display = 'block';
                 document.getElementById('homePageSins').classList.add('fade-in');
+            } else if (quizType === 'private') {
+                document.getElementById('resultPagePrivate').style.display = 'none';
+                document.getElementById('homePagePrivate').style.display = 'block';
+                document.getElementById('homePagePrivate').classList.add('fade-in');
             }
         }
 
         // Partager le résultat
         function shareResult() {
-            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : 
+                          currentQuiz === 'private' ? 'Private' : '';
             const characterName = document.getElementById('resultName' + suffix).textContent;
-            const quizName = currentQuiz === 'bluelock' ? 'Blue Lock' : 'Seven Deadly Sins';
+            const quizName = currentQuiz === 'bluelock' ? 'Blue Lock' : 
+                           currentQuiz === 'sevensins' ? 'Seven Deadly Sins' : 
+                           'la Squad';
             const text = `Je suis ${characterName} dans ${quizName} ! Et toi ? Fais le quiz pour le découvrir !`;
             
             if (navigator.share) {
