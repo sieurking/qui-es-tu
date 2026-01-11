@@ -22,7 +22,7 @@
             overflow-x: hidden;
         }
 
-        /* Style Blue Lock avec image de fond */
+        /* Style Blue Lock */
         body.blue-lock {
             background: linear-gradient(135deg, #1a0000 0%, #330000 50%, #000000 100%);
         }
@@ -34,16 +34,11 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at center, rgba(220, 20, 60, 0.3), transparent 70%),
-                linear-gradient(135deg, #1a0000 0%, #330000 50%, #8B0000 100%),
-                repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(218, 165, 32, 0.1) 2px, rgba(218, 165, 32, 0.1) 4px);
-            background-blend-mode: overlay;
-            opacity: 0.4;
+            background: radial-gradient(circle at center, rgba(220, 20, 60, 0.2), transparent 70%);
             animation: pulse-bg 4s ease-in-out infinite;
         }
 
-        /* Style Seven Deadly Sins avec image de fond */
+        /* Style Seven Deadly Sins */
         body.seven-sins {
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
         }
@@ -55,12 +50,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
-                radial-gradient(circle at center, rgba(255, 215, 0, 0.2), transparent 70%),
-                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #4B0082 100%),
-                repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255, 215, 0, 0.05) 10px, rgba(255, 215, 0, 0.05) 20px);
-            background-blend-mode: overlay;
-            opacity: 0.3;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 70%);
             animation: pulse-bg-sins 5s ease-in-out infinite;
         }
 
@@ -91,81 +81,23 @@
             width: 100%;
             overflow: hidden;
             border: 3px solid rgba(218, 165, 32, 0.3);
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
-
-        .quiz-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                linear-gradient(45deg, transparent 48%, rgba(218, 165, 32, 0.03) 50%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, rgba(220, 20, 60, 0.03) 50%, transparent 52%);
-            background-size: 30px 30px;
-            pointer-events: none;
-            opacity: 0.5;
         }
 
         .quiz-container.seven-sins-theme {
             background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
             box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3), 0 0 100px rgba(138, 43, 226, 0.2);
             border: 3px solid rgba(255, 215, 0, 0.3);
-            backdrop-filter: blur(10px);
         }
 
-        .quiz-container.seven-sins-theme::after {
-            background: 
-                linear-gradient(45deg, transparent 48%, rgba(255, 215, 0, 0.03) 50%, transparent 52%),
-                linear-gradient(-45deg, transparent 48%, rgba(138, 43, 226, 0.03) 50%, transparent 52%);
-            background-size: 30px 30px;
-        }
-
-        /* Page d'accueil Blue Lock avec image */
+        /* Page d'accueil Blue Lock */
         .home-page {
             text-align: center;
             padding: 60px 40px;
-            background: 
-                linear-gradient(180deg, rgba(220, 20, 60, 0.2) 0%, rgba(0, 0, 0, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: multiply;
-            position: relative;
-            filter: contrast(1.2) saturate(0.8);
-        }
-
-        .home-page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 30%, rgba(0, 0, 0, 0.8) 100%);
-            pointer-events: none;
-        }
-
-        .home-page > * {
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, transparent 100%);
         }
 
         .home-page.seven-sins-theme {
-            background: 
-                linear-gradient(180deg, rgba(255, 215, 0, 0.2) 0%, rgba(10, 10, 10, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1589829085413-56de8ae18c73?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: multiply;
-            filter: contrast(1.3) saturate(0.7);
-        }
-
-        .home-page.seven-sins-theme::before {
-            background: radial-gradient(circle at center, transparent 30%, rgba(10, 10, 10, 0.8) 100%);
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
         }
 
         .home-page h1 {
@@ -206,22 +138,6 @@
             margin: 30px 0;
             animation: bounce 2s infinite, glow 2s ease-in-out infinite;
             filter: drop-shadow(0 0 20px rgba(220, 20, 60, 0.8));
-            position: relative;
-        }
-
-        .anime-icon::before {
-            content: '⚽';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(1.5);
-            opacity: 0.1;
-            animation: pulse-icon 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse-icon {
-            0%, 100% { transform: translate(-50%, -50%) scale(1.5); opacity: 0.1; }
-            50% { transform: translate(-50%, -50%) scale(2); opacity: 0.05; }
         }
 
         @keyframes glow {
@@ -333,34 +249,11 @@
             transform: translateY(0);
         }
 
-        /* Page de questionnaire avec image */
+        /* Page de questionnaire */
         .quiz-page {
             display: none;
             padding: 40px;
-            background: 
-                linear-gradient(180deg, rgba(220, 20, 60, 0.15) 0%, rgba(0, 0, 0, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1529900748604-07564a03e7a6?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: multiply;
-            position: relative;
-            filter: contrast(1.2) saturate(0.6);
-        }
-
-        .quiz-page::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 20%, rgba(0, 0, 0, 0.85) 100%);
-            pointer-events: none;
-        }
-
-        .quiz-page > * {
-            position: relative;
-            z-index: 1;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.05) 0%, transparent 100%);
         }
 
         .progress-bar {
@@ -379,32 +272,14 @@
             width: 0%;
             transition: width 0.5s ease;
             box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
-            background-size: 200% 100%;
-            animation: shimmer-progress 2s ease-in-out infinite;
-        }
-
-        @keyframes shimmer-progress {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .seven-sins-theme .progress-fill {
-            background: linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #8A2BE2 100%);
-            background-size: 200% 100%;
         }
 
         .question-counter {
             text-align: center;
             color: #DAA520;
             margin-bottom: 20px;
-            font-size: 1rem;
+            font-size: 0.9rem;
             text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
-            font-weight: bold;
-            letter-spacing: 2px;
-        }
-
-        .seven-sins-theme .question-counter {
-            color: #FFD700;
         }
 
         .question-text {
@@ -414,16 +289,6 @@
             text-align: center;
             font-weight: 600;
             text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
-            animation: question-glow 3s ease-in-out infinite;
-        }
-
-        @keyframes question-glow {
-            0%, 100% {
-                text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
-            }
-            50% {
-                text-shadow: 0 0 30px rgba(218, 165, 32, 0.8), 0 0 40px rgba(220, 20, 60, 0.4);
-            }
         }
 
         .answers {
@@ -500,35 +365,51 @@
             background: rgba(255, 215, 0, 0.2);
         }
 
-        /* Page de résultat avec image */
+        /* Compteur avec style */
+        .question-counter {
+            text-align: center;
+            color: #DAA520;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .seven-sins-theme .question-counter {
+            color: #FFD700;
+        }
+
+        /* Page de résultat */
         .result-page {
             display: none;
             padding: 60px 40px;
             text-align: center;
-            background: 
-                linear-gradient(180deg, rgba(220, 20, 60, 0.25) 0%, rgba(0, 0, 0, 0.95) 100%),
-                url('https://images.unsplash.com/photo-1551958219-acbc608c6377?w=1200&q=80');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: multiply;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, transparent 100%);
             position: relative;
-            filter: contrast(1.3) saturate(0.8);
         }
 
         .result-page::before {
-            content: '';
+            content: '✨';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at center, transparent 25%, rgba(0, 0, 0, 0.9) 100%);
-            pointer-events: none;
+            top: 20px;
+            left: 20px;
+            font-size: 3rem;
+            animation: twinkle 2s ease-in-out infinite;
         }
 
-        .result-page > * {
-            position: relative;
-            z-index: 1;
+        .result-page::after {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 3rem;
+            animation: twinkle 2s ease-in-out infinite 1s;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .result-character {
@@ -536,30 +417,6 @@
             margin: 30px 0;
             animation: zoomIn 0.8s;
             filter: drop-shadow(0 0 30px rgba(218, 165, 32, 0.8));
-            position: relative;
-        }
-
-        .result-character::before {
-            content: '✨';
-            position: absolute;
-            top: -20px;
-            left: -40px;
-            font-size: 50px;
-            animation: sparkle 2s ease-in-out infinite;
-        }
-
-        .result-character::after {
-            content: '✨';
-            position: absolute;
-            bottom: -20px;
-            right: -40px;
-            font-size: 50px;
-            animation: sparkle 2s ease-in-out infinite 1s;
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1.2) rotate(180deg); }
         }
 
         @keyframes zoomIn {
@@ -680,7 +537,6 @@
             opacity: 0.6;
             animation: float-up 8s linear infinite;
             z-index: 0;
-            box-shadow: 0 0 10px #DAA520;
         }
 
         @keyframes float-up {
@@ -698,7 +554,37 @@
 
         .seven-sins .floating-particle {
             background: #FFD700;
-            box-shadow: 0 0 10px #FFD700;
+        }
+
+        /* SURPRISE : Progress bar animée avec gradient qui bouge */
+        .progress-fill {
+            background: linear-gradient(90deg, #DC143C 0%, #DAA520 50%, #FFD700 100%);
+            background-size: 200% 100%;
+            animation: shimmer-progress 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer-progress {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .seven-sins-theme .progress-fill {
+            background: linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #8A2BE2 100%);
+            background-size: 200% 100%;
+        }
+
+        /* SURPRISE : Effet de glow sur les questions */
+        .question-text {
+            animation: question-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes question-glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(218, 165, 32, 0.8), 0 0 40px rgba(220, 20, 60, 0.4);
+            }
         }
 
         /* SURPRISE : Effet hover sur le container */
@@ -752,6 +638,9 @@
     </style>
 </head>
 <body class="blue-lock">
+    <!-- Particules flottantes -->
+    <div id="particles-container"></div>
+
     <div class="main-container">
         <!-- QUIZ BLUE LOCK -->
         <div class="quiz-container" id="bluelock-container">
@@ -825,6 +714,11 @@
                     Partager 📤
                 </button>
             </div>
+        </div>
+
+        <!-- SÉPARATEUR STYLÉ -->
+        <div class="quiz-separator">
+            <span>⚔️ OU ⚔️</span>
         </div>
 
         <!-- QUIZ SEVEN DEADLY SINS -->
@@ -907,21 +801,22 @@
         let currentQuestion = 0;
         let answers = [];
         let currentQuiz = 'bluelock';
-        
-        // Créer des particules flottantes
-        function createFloatingParticles() {
+
+        // SURPRISE : Créer des particules flottantes
+        function createParticles() {
+            const container = document.getElementById('particles-container');
             for (let i = 0; i < 20; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'floating-particle';
                 particle.style.left = Math.random() * 100 + '%';
                 particle.style.animationDelay = Math.random() * 8 + 's';
                 particle.style.animationDuration = (Math.random() * 4 + 6) + 's';
-                document.body.appendChild(particle);
+                container.appendChild(particle);
             }
         }
-        
+
         // Initialiser les particules au chargement
-        window.addEventListener('load', createFloatingParticles);
+        createParticles();
         
         // QUESTIONS BLUE LOCK (12 questions, 5 réponses chacune)
         const questionsBluelock = [
@@ -1348,14 +1243,26 @@
 
         // Sélectionner une réponse
         function selectAnswer(answerIndex) {
-            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
-            answers.push(questions[currentQuestion].answers[answerIndex].points);
-            currentQuestion++;
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const container = document.getElementById('answersContainer' + suffix);
+            const buttons = container.getElementsByClassName('answer-btn');
             
-            if (currentQuestion < questions.length) {
-                showQuestion();
-            } else {
-                showResult();
+            // SURPRISE : Effet visuel sur le bouton cliqué
+            if (buttons[answerIndex]) {
+                buttons[answerIndex].classList.add('selected');
+                
+                // Petit délai pour voir l'animation
+                setTimeout(() => {
+                    const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+                    answers.push(questions[currentQuestion].answers[answerIndex].points);
+                    currentQuestion++;
+                    
+                    if (currentQuestion < questions.length) {
+                        showQuestion();
+                    } else {
+                        showResult();
+                    }
+                }, 400);
             }
         }
 
