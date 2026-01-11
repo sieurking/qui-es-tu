@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quel Personnage d'Anime es-tu ?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Style Blue Lock */
+        body.blue-lock {
+            background: linear-gradient(135deg, #1a0000 0%, #330000 50%, #000000 100%);
+        }
+
+        body.blue-lock::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(220, 20, 60, 0.2), transparent 70%);
+            animation: pulse-bg 4s ease-in-out infinite;
+        }
+
+        /* Style Seven Deadly Sins */
+        body.seven-sins {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+        }
+
+        body.seven-sins::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15), transparent 70%);
+            animation: pulse-bg-sins 5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-bg {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.6; }
+        }
+
+        @keyframes pulse-bg-sins {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.4; }
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .quiz-container {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(26, 0, 0, 0.95) 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(220, 20, 60, 0.4), 0 0 100px rgba(218, 165, 32, 0.2);
+            width: 100%;
+            overflow: hidden;
+            border: 3px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .quiz-container.seven-sins-theme {
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(26, 26, 46, 0.95) 100%);
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3), 0 0 100px rgba(138, 43, 226, 0.2);
+            border: 3px solid rgba(255, 215, 0, 0.3);
+        }
+
+        /* Page d'accueil Blue Lock */
+        .home-page {
+            text-align: center;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, transparent 100%);
+        }
+
+        .home-page.seven-sins-theme {
+            background: linear-gradient(180deg, rgba(255, 215, 0, 0.1) 0%, transparent 100%);
+        }
+
+        .home-page h1 {
+            font-size: 3rem;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 50%, #DAA520 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.8s, shimmer 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.5);
+            font-weight: 900;
+            letter-spacing: 2px;
+        }
+
+        .home-page.seven-sins-theme h1 {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.3); }
+        }
+
+        .home-page .subtitle {
+            font-size: 1.3rem;
+            color: #DAA520;
+            margin-bottom: 40px;
+            animation: fadeInUp 0.8s;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+        }
+
+        .anime-icon {
+            font-size: 100px;
+            margin: 30px 0;
+            animation: bounce 2s infinite, glow 2s ease-in-out infinite;
+            filter: drop-shadow(0 0 20px rgba(220, 20, 60, 0.8));
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(220, 20, 60, 0.8));
+            }
+            50% { 
+                filter: drop-shadow(0 0 40px rgba(218, 165, 32, 0.8));
+            }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.3) 0%, rgba(139, 0, 0, 0.3) 100%);
+            color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            text-align: left;
+            border: 2px solid rgba(218, 165, 32, 0.4);
+            box-shadow: 0 0 30px rgba(220, 20, 60, 0.3);
+        }
+
+        .info-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #DAA520;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.5);
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(218, 165, 32, 0.2);
+            color: #ddd;
+        }
+
+        .info-box li:last-child {
+            border-bottom: none;
+        }
+
+        .info-box li::before {
+            content: "👑 ";
+            margin-right: 10px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 50%, #DAA520 100%);
+            color: #000;
+            border: none;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 10px 30px rgba(218, 165, 32, 0.4), 0 0 40px rgba(220, 20, 60, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .seven-sins-theme .btn {
+            background: linear-gradient(135deg, #FFD700 0%, #FFA500 50%, #FF8C00 100%);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.5), 0 0 40px rgba(138, 43, 226, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(218, 165, 32, 0.6), 0 0 60px rgba(220, 20, 60, 0.5);
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 50%, #FFD700 100%);
+        }
+
+        .seven-sins-theme .btn:hover {
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.7), 0 0 60px rgba(138, 43, 226, 0.5);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Page de questionnaire */
+        .quiz-page {
+            display: none;
+            padding: 40px;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.05) 0%, transparent 100%);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(50, 0, 0, 0.8);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            overflow: hidden;
+            border: 1px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #DC143C 0%, #DAA520 50%, #FFD700 100%);
+            width: 0%;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.6);
+        }
+
+        .question-counter {
+            text-align: center;
+            color: #DAA520;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+        }
+
+        .question-text {
+            font-size: 1.8rem;
+            color: #FFD700;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 600;
+            text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+        }
+
+        .answers {
+            display: grid;
+            gap: 15px;
+        }
+
+        .answer-btn {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(139, 0, 0, 0.2) 100%);
+            border: 3px solid rgba(218, 165, 32, 0.4);
+            padding: 20px 30px;
+            font-size: 1.1rem;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .answer-btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(218, 165, 32, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .answer-btn:hover::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .answer-btn:hover {
+            border-color: #DAA520;
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.4) 0%, rgba(139, 0, 0, 0.4) 100%);
+            transform: translateX(10px);
+            box-shadow: 0 0 30px rgba(218, 165, 32, 0.4);
+        }
+
+        .answer-btn::before {
+            content: "👑 ";
+            color: #DAA520;
+            font-size: 1.5rem;
+            margin-right: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Style spécifique Seven Deadly Sins */
+        .seven-sins-theme .answer-btn {
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.15) 0%, rgba(138, 43, 226, 0.15) 100%);
+            border: 3px solid rgba(255, 215, 0, 0.4);
+        }
+
+        .seven-sins-theme .answer-btn:hover {
+            border-color: #FFD700;
+            background: linear-gradient(135deg, rgba(255, 215, 0, 0.3) 0%, rgba(138, 43, 226, 0.3) 100%);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .seven-sins-theme .answer-btn::before {
+            content: "⚔️ ";
+            color: #FFD700;
+        }
+
+        .seven-sins-theme .answer-btn::after {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        /* Compteur avec style */
+        .question-counter {
+            text-align: center;
+            color: #DAA520;
+            margin-bottom: 20px;
+            font-size: 1rem;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .seven-sins-theme .question-counter {
+            color: #FFD700;
+        }
+
+        /* Page de résultat */
+        .result-page {
+            display: none;
+            padding: 60px 40px;
+            text-align: center;
+            background: linear-gradient(180deg, rgba(220, 20, 60, 0.1) 0%, transparent 100%);
+        }
+
+        .result-character {
+            font-size: 120px;
+            margin: 30px 0;
+            animation: zoomIn 0.8s;
+            filter: drop-shadow(0 0 30px rgba(218, 165, 32, 0.8));
+        }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .result-name {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #DAA520 0%, #FFD700 50%, #DAA520 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 30px rgba(218, 165, 32, 0.5);
+        }
+
+        .result-description {
+            font-size: 1.2rem;
+            color: #ddd;
+            line-height: 1.8;
+            margin: 30px 0;
+        }
+
+        .result-traits {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.2) 0%, rgba(139, 0, 0, 0.2) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border: 2px solid rgba(218, 165, 32, 0.3);
+        }
+
+        .result-traits h3 {
+            color: #DAA520;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(218, 165, 32, 0.3);
+        }
+
+        .trait-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            text-align: left;
+        }
+
+        .trait-item {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.3) 0%, rgba(139, 0, 0, 0.3) 100%);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #DAA520;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(220, 20, 60, 0.2);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, rgba(220, 20, 60, 0.8) 0%, rgba(139, 0, 0, 0.8) 100%);
+            color: #DAA520;
+            border: 3px solid #DAA520;
+            margin-left: 10px;
+        }
+
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #DC143C 0%, #8B0000 100%);
+            color: #FFD700;
+            box-shadow: 0 15px 40px rgba(220, 20, 60, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .home-page h1 {
+                font-size: 2rem;
+            }
+            .question-text {
+                font-size: 1.4rem;
+            }
+            .answer-btn {
+                padding: 15px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        /* Animations pour les transitions de pages */
+        .fade-in {
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* SURPRISE : Effet de sélection de réponse */
+        .answer-btn.selected {
+            animation: selectPulse 0.4s ease-out;
+        }
+
+        @keyframes selectPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); border-color: #FFD700; }
+            100% { transform: scale(1); }
+        }
+
+        /* SURPRISE : Particules flottantes dans le fond */
+        .floating-particle {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            background: #DAA520;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: float-up 8s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .seven-sins .floating-particle {
+            background: #FFD700;
+        }
+
+        /* SURPRISE : Progress bar animée avec gradient qui bouge */
+        .progress-fill {
+            background: linear-gradient(90deg, #DC143C 0%, #DAA520 50%, #FFD700 100%);
+            background-size: 200% 100%;
+            animation: shimmer-progress 2s ease-in-out infinite;
+        }
+
+        @keyframes shimmer-progress {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .seven-sins-theme .progress-fill {
+            background: linear-gradient(90deg, #FFD700 0%, #FFA500 50%, #8A2BE2 100%);
+            background-size: 200% 100%;
+        }
+
+        /* SURPRISE : Effet de glow sur les questions */
+        .question-text {
+            animation: question-glow 3s ease-in-out infinite;
+        }
+
+        @keyframes question-glow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(218, 165, 32, 0.4);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(218, 165, 32, 0.8), 0 0 40px rgba(220, 20, 60, 0.4);
+            }
+        }
+
+        /* SURPRISE : Effet hover sur le container */
+        .quiz-container {
+            transition: all 0.3s;
+        }
+
+        .quiz-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 70px rgba(220, 20, 60, 0.5), 0 0 120px rgba(218, 165, 32, 0.3);
+        }
+
+        .quiz-container.seven-sins-theme:hover {
+            box-shadow: 0 25px 70px rgba(255, 215, 0, 0.4), 0 0 120px rgba(138, 43, 226, 0.3);
+        }
+
+        /* SURPRISE : Séparateur stylé entre les quiz */
+        .quiz-separator {
+            width: 100%;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .quiz-separator::before {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #DAA520, transparent);
+            animation: separator-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes separator-glow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; box-shadow: 0 0 20px #DAA520; }
+        }
+
+        .quiz-separator span {
+            background: linear-gradient(135deg, #1a0000, #330000);
+            padding: 15px 30px;
+            border-radius: 30px;
+            border: 2px solid #DAA520;
+            color: #FFD700;
+            font-weight: bold;
+            z-index: 1;
+            box-shadow: 0 0 20px rgba(218, 165, 32, 0.5);
+        }
+    </style>
+</head>
+<body class="blue-lock">
+    <div class="main-container">
+        <!-- QUIZ BLUE LOCK -->
+        <div class="quiz-container" id="bluelock-container">
+            <!-- PAGE D'ACCUEIL -->
+            <div class="home-page" id="homePage">
+                <div class="anime-icon">👑</div>
+                <h1>Quel Joueur de Blue Lock es-tu ?</h1>
+                <p class="subtitle">Découvre quel guerrier du terrain sommeille en toi !</p>
+                
+                <div class="info-box">
+                    <h3>⚔️ Comment ça marche ?</h3>
+                    <ul>
+                        <li>Réponds avec ton cœur, pas avec ta tête</li>
+                        <li>Chaque choix révèle une part de ton âme</li>
+                        <li>Découvre quel joueur légendaire te correspond</li>
+                        <li>Accepte ton destin et partage ta gloire !</li>
+                    </ul>
+                </div>
+
+                <button class="btn" onclick="startQuiz('bluelock')">
+                    Commencer l'Épreuve 👑
+                </button>
+            </div>
+
+            <!-- PAGE DE QUESTIONNAIRE -->
+            <div class="quiz-page" id="quizPage" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBar"></div>
+                </div>
+                
+                <div class="question-counter" id="questionCounter">
+                    Question 1 sur 12
+                </div>
+                
+                <h2 class="question-text" id="questionText">
+                    La question apparaîtra ici
+                </h2>
+                
+                <div class="answers" id="answersContainer">
+                    <!-- Les réponses seront générées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- PAGE DE RÉSULTAT -->
+            <div class="result-page" id="resultPage" style="display: none;">
+                <h2 style="color: #DAA520; margin-bottom: 20px;">🎉 Ton joueur Blue Lock :</h2>
+                
+                <div class="result-character" id="resultCharacter">
+                    <!-- Emoji du personnage -->
+                </div>
+                
+                <div class="result-name" id="resultName">
+                    <!-- Nom du personnage -->
+                </div>
+                
+                <div class="result-description" id="resultDescription">
+                    <!-- Description -->
+                </div>
+                
+                <div class="result-traits">
+                    <h3>✨ Tes caractéristiques :</h3>
+                    <div class="trait-list" id="traitList">
+                        <!-- Traits du personnage -->
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="restartQuiz('bluelock')">
+                    Recommencer 🔄
+                </button>
+                <button class="btn btn-secondary" onclick="shareResult()">
+                    Partager 📤
+                </button>
+            </div>
+        </div>
+
+        <!-- QUIZ SEVEN DEADLY SINS -->
+        <div class="quiz-container seven-sins-theme" id="sevensins-container">
+            <!-- PAGE D'ACCUEIL -->
+            <div class="home-page seven-sins-theme" id="homePageSins">
+                <div class="anime-icon">⚔️</div>
+                <h1>Quel Péché Capital es-tu ?</h1>
+                <p class="subtitle">Découvre quel guerrier légendaire de Britannia tu incarnes !</p>
+                
+                <div class="info-box">
+                    <h3>🗡️ Le Destin t'appelle</h3>
+                    <ul>
+                        <li>Réponds selon ta nature profonde</li>
+                        <li>Laisse ton âme parler</li>
+                        <li>Découvre ton véritable pouvoir</li>
+                        <li>Embrasse ta destinée légendaire !</li>
+                    </ul>
+                </div>
+
+                <button class="btn" onclick="startQuiz('sevensins')">
+                    Découvrir mon Destin ⚔️
+                </button>
+            </div>
+
+            <!-- PAGE DE QUESTIONNAIRE -->
+            <div class="quiz-page" id="quizPageSins" style="display: none;">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressBarSins"></div>
+                </div>
+                
+                <div class="question-counter" id="questionCounterSins">
+                    Question 1 sur 12
+                </div>
+                
+                <h2 class="question-text" id="questionTextSins">
+                    La question apparaîtra ici
+                </h2>
+                
+                <div class="answers" id="answersContainerSins">
+                    <!-- Les réponses seront générées dynamiquement -->
+                </div>
+            </div>
+
+            <!-- PAGE DE RÉSULTAT -->
+            <div class="result-page" id="resultPageSins" style="display: none;">
+                <h2 style="color: #FFD700; margin-bottom: 20px;">✨ Ton guerrier légendaire :</h2>
+                
+                <div class="result-character" id="resultCharacterSins">
+                    <!-- Emoji du personnage -->
+                </div>
+                
+                <div class="result-name" id="resultNameSins">
+                    <!-- Nom du personnage -->
+                </div>
+                
+                <div class="result-description" id="resultDescriptionSins">
+                    <!-- Description -->
+                </div>
+                
+                <div class="result-traits">
+                    <h3>✨ Tes attributs divins :</h3>
+                    <div class="trait-list" id="traitListSins">
+                        <!-- Traits du personnage -->
+                    </div>
+                </div>
+                
+                <button class="btn" onclick="restartQuiz('sevensins')">
+                    Recommencer 🔄
+                </button>
+                <button class="btn btn-secondary" onclick="shareResult()">
+                    Partager 📤
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentQuestion = 0;
+        let answers = [];
+        let currentQuiz = 'bluelock';
+        
+        // QUESTIONS BLUE LOCK (12 questions, 5 réponses chacune)
+        const questionsBluelock = [
+            {
+                question: "Quand tu entres sur le terrain, ta priorité est :",
+                answers: [
+                    { text: "Comprendre le jeu et anticiper", points: { isagi: 3, sae: 2, rin: 2 } },
+                    { text: "M'exprimer librement balle au pied", points: { bachira: 3, nagi: 2, shidou: 2 } },
+                    { text: "Dominer physiquement les autres", points: { barou: 3, kunigami: 2, chigiri: 1 } },
+                    { text: "Inspirer discrètement mon équipe", points: { sae: 3, reo: 2, isagi: 1 } },
+                    { text: "Attendre le moment parfait pour frapper", points: { rin: 3, nagi: 2, shidou: 1 } }
+                ]
+            },
+            {
+                question: "Ton arme principale au football est :",
+                answers: [
+                    { text: "Ma vision du jeu", points: { isagi: 3, sae: 3, reo: 2 } },
+                    { text: "Ma technique individuelle", points: { bachira: 3, nagi: 3, rin: 2 } },
+                    { text: "Ma puissance / vitesse", points: { barou: 3, chigiri: 3, kunigami: 2 } },
+                    { text: "Ma créativité", points: { bachira: 3, nagi: 2, shidou: 2 } },
+                    { text: "Mon intelligence tactique", points: { isagi: 3, reo: 3, sae: 2 } }
+                ]
+            },
+            {
+                question: "Comment réagis-tu après un échec ?",
+                answers: [
+                    { text: "J'analyse et je m'adapte", points: { isagi: 3, reo: 3, rin: 2 } },
+                    { text: "J'essaie quelque chose de nouveau", points: { bachira: 3, nagi: 2, shidou: 2 } },
+                    { text: "Je deviens encore plus agressif", points: { barou: 3, kunigami: 2, shidou: 2 } },
+                    { text: "Je cherche la solution la plus logique", points: { sae: 3, rin: 3, isagi: 2 } },
+                    { text: "Je m'appuie sur mon instinct", points: { bachira: 3, shidou: 2, nagi: 1 } }
+                ]
+            },
+            {
+                question: "Ton style de jeu ressemble le plus à :",
+                answers: [
+                    { text: "Stratège intelligent", points: { isagi: 3, sae: 3, rin: 2 } },
+                    { text: "Artiste imprévisible", points: { bachira: 3, nagi: 3, shidou: 2 } },
+                    { text: "Prédateur devant le but", points: { barou: 3, kunigami: 2, chigiri: 2 } },
+                    { text: "Tactique et réfléchi", points: { sae: 3, reo: 2, rin: 2 } },
+                    { text: "Impulsif et spontané", points: { shidou: 3, bachira: 2, nagi: 1 } }
+                ]
+            },
+            {
+                question: "En équipe, tu es plutôt :",
+                answers: [
+                    { text: "Le cerveau", points: { isagi: 3, sae: 2, reo: 2 } },
+                    { text: "Le créatif", points: { bachira: 3, nagi: 2, shidou: 2 } },
+                    { text: "Le leader dominant", points: { barou: 3, rin: 2, kunigami: 1 } },
+                    { text: "Celui qui inspire discrètement", points: { sae: 3, reo: 2, isagi: 1 } },
+                    { text: "Celui qui attend le moment parfait", points: { rin: 3, nagi: 2, chigiri: 1 } }
+                ]
+            },
+            {
+                question: "Quelle phrase te représente le mieux ?",
+                answers: [
+                    { text: "« Je vais évoluer pour gagner »", points: { isagi: 3, reo: 2, chigiri: 2 } },
+                    { text: "« Je joue comme je le ressens »", points: { bachira: 3, nagi: 3, shidou: 2 } },
+                    { text: "« Le terrain m'appartient »", points: { barou: 3, rin: 2, sae: 1 } },
+                    { text: "« Mon calme est ma force »", points: { rin: 3, sae: 2, nagi: 1 } },
+                    { text: "« J'ose ce que les autres n'osent pas »", points: { shidou: 3, bachira: 2, barou: 1 } }
+                ]
+            },
+            {
+                question: "Ton rapport à l'entraînement est :",
+                answers: [
+                    { text: "Sérieux et réfléchi", points: { isagi: 3, rin: 3, sae: 2 } },
+                    { text: "Ludique mais intense", points: { bachira: 3, nagi: 2, reo: 2 } },
+                    { text: "Brutal et acharné", points: { barou: 3, kunigami: 3, shidou: 2 } },
+                    { text: "Stratégique et méthodique", points: { sae: 3, isagi: 2, reo: 2 } },
+                    { text: "Agile et rapide", points: { chigiri: 3, bachira: 2, shidou: 1 } }
+                ]
+            },
+            {
+                question: "Dans un match décisif, tu préfères :",
+                answers: [
+                    { text: "Faire la passe parfaite", points: { isagi: 3, sae: 3, reo: 2 } },
+                    { text: "Dribbler tout le monde", points: { bachira: 3, nagi: 2, chigiri: 2 } },
+                    { text: "Tirer sans hésiter", points: { barou: 3, kunigami: 2, shidou: 2 } },
+                    { text: "Analyser puis décider", points: { isagi: 3, rin: 2, sae: 2 } },
+                    { text: "Suivre ton intuition", points: { bachira: 3, shidou: 2, nagi: 1 } }
+                ]
+            },
+            {
+                question: "Ton mental est plutôt :",
+                answers: [
+                    { text: "Calme et analytique", points: { isagi: 3, sae: 3, rin: 3 } },
+                    { text: "Instinctif et libre", points: { bachira: 3, nagi: 3, shidou: 2 } },
+                    { text: "Explosif et dominateur", points: { barou: 3, kunigami: 2, rin: 1 } },
+                    { text: "Stratégique et calculateur", points: { rin: 3, sae: 2, reo: 2 } },
+                    { text: "Flexible et adaptable", points: { reo: 3, isagi: 2, bachira: 1 } }
+                ]
+            },
+            {
+                question: "Ce qui te motive le plus, c'est :",
+                answers: [
+                    { text: "Devenir meilleur que moi-même", points: { isagi: 3, chigiri: 3, reo: 2 } },
+                    { text: "Prendre du plaisir en jouant", points: { bachira: 3, nagi: 3, shidou: 2 } },
+                    { text: "Écraser mes rivaux", points: { barou: 3, rin: 2, sae: 1 } },
+                    { text: "Respecter et surpasser les autres", points: { sae: 3, rin: 2, kunigami: 1 } },
+                    { text: "Observer et apprendre", points: { isagi: 3, reo: 2, rin: 1 } }
+                ]
+            },
+            {
+                question: "Ton poste idéal serait :",
+                answers: [
+                    { text: "Milieu offensif / faux 9", points: { isagi: 3, reo: 3, sae: 2 } },
+                    { text: "Ailier / second attaquant", points: { bachira: 3, chigiri: 3, nagi: 2 } },
+                    { text: "Avant-centre pur", points: { barou: 3, kunigami: 2, shidou: 2 } },
+                    { text: "Organisé et polyvalent", points: { reo: 3, isagi: 2, sae: 1 } },
+                    { text: "Spontané et imprévisible", points: { shidou: 3, bachira: 2, nagi: 1 } }
+                ]
+            },
+            {
+                question: "Si tu marques un but incroyable, tu :",
+                answers: [
+                    { text: "Restes concentré sur la suite", points: { isagi: 3, sae: 3, rin: 2 } },
+                    { text: "Souris, heureux d'avoir créé quelque chose", points: { bachira: 3, nagi: 2, reo: 2 } },
+                    { text: "Provoques l'adversaire", points: { barou: 3, shidou: 3, rin: 1 } },
+                    { text: "Analyses comment tu l'as fait", points: { isagi: 3, reo: 2, sae: 1 } },
+                    { text: "Te laisses emporter par l'émotion", points: { bachira: 3, shidou: 2, kunigami: 1 } }
+                ]
+            }
+        ];
+
+        // PERSONNAGES BLUE LOCK
+        const charactersBluelock = {
+            isagi: {
+                name: "Yoichi Isagi",
+                emoji: "⚽",
+                description: "Tu es le stratège qui évolue constamment ! Ta vision du jeu exceptionnelle et ta capacité d'adaptation font de toi un joueur complet. Tu lis le terrain comme personne et tu sais exactement où être au bon moment.",
+                traits: ["Vision du jeu exceptionnelle", "Lecture spatiale (méta-vision)", "Capacité d'adaptation", "Mental compétitif évolutif"]
+            },
+            bachira: {
+                name: "Meguru Bachira",
+                emoji: "🎨",
+                description: "Tu es l'artiste imprévisible du terrain ! Tes dribbles créatifs et ton instinct naturel font de toi un joueur spectaculaire. Tu joues avec liberté et joie, créant la magie à chaque touche de balle.",
+                traits: ["Dribbles imprévisibles", "Créativité offensive", "Technique individuelle élevée", "Personnalité joyeuse et libre"]
+            },
+            kunigami: {
+                name: "Rensuke Kunigami",
+                emoji: "💪",
+                description: "Tu es le héros au mental d'acier ! Ta puissance de frappe et ton physique imposant font de toi un attaquant redoutable. Tu joues avec honneur et détermination, toujours prêt à te battre.",
+                traits: ["Frappe puissante", "Physique solide", "Mental de héros", "Forte détermination"]
+            },
+            chigiri: {
+                name: "Hyoma Chigiri",
+                emoji: "⚡",
+                description: "Tu es la vitesse pure incarnée ! Ton accélération fulgurante et tes appels en profondeur terrorisent les défenses. Tu as surmonté tes peurs et tu cours maintenant librement vers la victoire.",
+                traits: ["Vitesse exceptionnelle", "Accélération fulgurante", "Appels en profondeur", "Mental libéré"]
+            },
+            barou: {
+                name: "Shoei Barou",
+                emoji: "👑",
+                description: "Tu es le ROI du terrain ! Ta puissance physique et ta mentalité dominante font de toi un prédateur implacable. Tu assumes ton jeu égoïste car tu sais que tu es né pour régner sur ce sport.",
+                traits: ["Puissance physique", "Tir dévastateur", "Mentalité de roi", "Jeu égoïste assumé"]
+            },
+            nagi: {
+                name: "Seishiro Nagi",
+                emoji: "✨",
+                description: "Tu es le génie paresseux ! Ton contrôle de balle parfait et ton talent naturel rare font de toi un joueur unique. Tu crées des moments de magie pure avec un sang-froid impressionnant.",
+                traits: ["Contrôle de balle parfait", "Talent naturel rare", "Créativité spontanée", "Génie offensif instinctif"]
+            },
+            reo: {
+                name: "Reo Mikage",
+                emoji: "💎",
+                description: "Tu es le caméléon polyvalent ! Ta capacité d'adaptation et ton intelligence tactique font de toi un joueur complet. Tu excelles dans tous les domaines et tu as l'ambition de devenir le meilleur.",
+                traits: ["Polyvalence extrême", "Capacité d'adaptation", "Intelligence tactique", "Mental ambitieux"]
+            },
+            rin: {
+                name: "Itoshi Rin",
+                emoji: "❄️",
+                description: "Tu es le prédateur au sang-froid absolu ! Ta précision chirurgicale et ta vision tactique avancée font de toi un joueur dominateur. Tu portes ton équipe avec un mental de champion.",
+                traits: ["Précision chirurgicale", "Vision tactique avancée", "Sang-froid absolu", "Mental dominateur"]
+            },
+            sae: {
+                name: "Itoshi Sae",
+                emoji: "👁️",
+                description: "Tu es le meneur de jeu d'élite ! Ta technique de niveau mondial et tes passes millimétrées font de toi un orchestrateur parfait. Tu as le leadership naturel et le calme des grands joueurs.",
+                traits: ["Technique mondiale", "Passes millimétrées", "Vision du jeu élite", "Leadership naturel"]
+            },
+            shidou: {
+                name: "Ryusei Shidou",
+                emoji: "💥",
+                description: "Tu es le chaos incarné ! Ton instinct de buteur pur et ton athlétisme explosif font de toi un joueur imprévisible et dangereux. Tu joues avec une créativité violente qui terrorise les défenses.",
+                traits: ["Instinct de buteur pur", "Athlétisme explosif", "Créativité violente", "Finition acrobatique"]
+            }
+        };
+
+        // QUESTIONS SEVEN DEADLY SINS (mélangées pour éviter pattern, 5 réponses)
+        const questionsSevensins = [
+            {
+                question: "Dans un groupe, tu es plutôt :",
+                answers: [
+                    { text: "Celui qui rassemble et soutient", points: { meliodas: 3, ban: 2, king: 2, drole: 1 } },
+                    { text: "Celui qui impose naturellement le respect", points: { escanor: 3, mael: 2, ludociel: 2, gloxinia: 1 } },
+                    { text: "Celui qui observe avant d'agir", points: { monspiet: 3, nanashi: 3, gloxinia: 2, ludociel: 1 } },
+                    { text: "Celui qui garde un œil sur tout", points: { gloxinia: 3, ludociel: 2, mael: 1, nanashi: 1 } },
+                    { text: "Celui qui reste en retrait mais efficace", points: { nanashi: 3, monspiet: 2, king: 1, drole: 1 } }
+                ]
+            },
+            {
+                question: "Face à un problème, tu préfères :",
+                answers: [
+                    { text: "Protéger les autres avant toi", points: { meliodas: 3, king: 3, drole: 2, ban: 1 } },
+                    { text: "Faire face avec assurance", points: { escanor: 3, mael: 2, ludociel: 2, ban: 1 } },
+                    { text: "Réfléchir calmement", points: { nanashi: 3, monspiet: 2, gloxinia: 2, ludociel: 2 } },
+                    { text: "Suivre ton instinct", points: { ban: 3, meliodas: 2, escanor: 1, king: 1 } },
+                    { text: "Prendre le temps de tout analyser", points: { gloxinia: 3, ludociel: 3, mael: 2, nanashi: 1 } }
+                ]
+            },
+            {
+                question: "Ton plus grand point fort est :",
+                answers: [
+                    { text: "La maîtrise de soi", points: { nanashi: 3, monspiet: 3, mael: 2, ludociel: 1 } },
+                    { text: "La confiance en soi", points: { escanor: 3, meliodas: 2, gloxinia: 2, ban: 2 } },
+                    { text: "La loyauté", points: { ban: 3, king: 3, drole: 2, monspiet: 2 } },
+                    { text: "Le courage", points: { meliodas: 3, drole: 2, mael: 2, escanor: 1 } },
+                    { text: "La sagacité", points: { gloxinia: 3, ludociel: 2, nanashi: 2, monspiet: 1 } }
+                ]
+            },
+            {
+                question: "Quand on te critique, tu :",
+                answers: [
+                    { text: "Restes fidèle à tes valeurs", points: { meliodas: 3, drole: 3, mael: 2, king: 2 } },
+                    { text: "Prends du recul", points: { nanashi: 3, gloxinia: 2, monspiet: 2, ludociel: 2 } },
+                    { text: "Réponds sans détour", points: { escanor: 3, ban: 3, ludociel: 2, gloxinia: 1 } },
+                    { text: "Protèges sans te montrer", points: { king: 3, monspiet: 2, drole: 1, nanashi: 1 } },
+                    { text: "Manipules la situation en coulisses", points: { gloxinia: 3, ludociel: 2, nanashi: 1, monspiet: 1 } }
+                ]
+            },
+            {
+                question: "Ton style naturel est :",
+                answers: [
+                    { text: "Direct et affirmé", points: { escanor: 3, ban: 2, ludociel: 2, mael: 1 } },
+                    { text: "Chaleureux et fiable", points: { meliodas: 3, king: 2, drole: 2, ban: 1 } },
+                    { text: "Discret et réservé", points: { nanashi: 3, monspiet: 3, king: 1, gloxinia: 1 } },
+                    { text: "Fort mentalement", points: { drole: 3, mael: 2, escanor: 2, ludociel: 1 } },
+                    { text: "Mystérieux", points: { nanashi: 3, monspiet: 2, gloxinia: 1, ludociel: 1 } }
+                ]
+            },
+            {
+                question: "Ce que les autres remarquent le plus chez toi :",
+                answers: [
+                    { text: "Ton calme", points: { monspiet: 3, nanashi: 2, drole: 2, mael: 1 } },
+                    { text: "Ta présence", points: { escanor: 3, ludociel: 2, gloxinia: 2, meliodas: 2 } },
+                    { text: "Ta bienveillance", points: { meliodas: 3, king: 3, drole: 2, ban: 1 } },
+                    { text: "Ce qui te motive le plus", points: { mael: 2, escanor: 2, ban: 2, drole: 1 } },
+                    { text: "Ta discrétion efficace", points: { nanashi: 3, monspiet: 2, gloxinia: 1, king: 1 } }
+                ]
+            },
+            {
+                question: "En situation de stress, tu deviens :",
+                answers: [
+                    { text: "Plus concentré", points: { nanashi: 3, ludociel: 2, gloxinia: 2, mael: 2 } },
+                    { text: "Encore plus protecteur", points: { meliodas: 3, king: 3, drole: 2, ban: 2 } },
+                    { text: "Plus déterminé", points: { escanor: 3, mael: 3, ludociel: 2, ban: 1 } },
+                    { text: "Plus ambitieux", points: { gloxinia: 2, ludociel: 2, escanor: 2, mael: 1 } },
+                    { text: "Plus réfléchi", points: { nanashi: 2, monspiet: 2, gloxinia: 2, ludociel: 2 } }
+                ]
+            },
+            {
+                question: "Tu prends une décision surtout grâce à :",
+                answers: [
+                    { text: "Ta logique", points: { ludociel: 3, gloxinia: 3, nanashi: 2, monspiet: 2 } },
+                    { text: "Tes valeurs", points: { meliodas: 3, mael: 3, drole: 2, king: 2 } },
+                    { text: "Ta confiance", points: { escanor: 3, ban: 2, gloxinia: 1, ludociel: 1 } },
+                    { text: "Ton courage", points: { drole: 3, meliodas: 2, mael: 2, ban: 1 } },
+                    { text: "Ta sagacité", points: { gloxinia: 3, nanashi: 2, ludociel: 2, monspiet: 1 } }
+                ]
+            },
+            {
+                question: "Dans un conflit, tu es plutôt :",
+                answers: [
+                    { text: "Stratège", points: { gloxinia: 3, ludociel: 3, nanashi: 2, monspiet: 2 } },
+                    { text: "Médiateur", points: { meliodas: 3, king: 2, drole: 2, monspiet: 1 } },
+                    { text: "Dominant", points: { escanor: 3, ludociel: 2, mael: 2, ban: 1 } },
+                    { text: "Protecteur invisible", points: { king: 3, nanashi: 2, monspiet: 2, drole: 1 } },
+                    { text: "Observateur patient", points: { nanashi: 3, gloxinia: 2, monspiet: 2, ludociel: 1 } }
+                ]
+            },
+            {
+                question: "Ta relation aux autres est :",
+                answers: [
+                    { text: "Franche et directe", points: { ban: 3, escanor: 2, ludociel: 2, mael: 1 } },
+                    { text: "Très attachée", points: { meliodas: 3, king: 3, drole: 2, ban: 1 } },
+                    { text: "Distante mais respectueuse", points: { nanashi: 3, monspiet: 3, gloxinia: 2, ludociel: 1 } },
+                    { text: "Respectueuse mais critique", points: { ludociel: 3, gloxinia: 2, mael: 1, nanashi: 1 } },
+                    { text: "Indifférente", points: { nanashi: 2, monspiet: 2, gloxinia: 1, ludociel: 1 } }
+                ]
+            },
+            {
+                question: "Ton rythme de vie idéal :",
+                answers: [
+                    { text: "Calme et structuré", points: { nanashi: 3, monspiet: 2, ludociel: 2, drole: 2 } },
+                    { text: "Intense et affirmé", points: { escanor: 3, mael: 2, gloxinia: 2, ban: 1 } },
+                    { text: "Équilibré et stable", points: { meliodas: 3, drole: 3, king: 2, monspiet: 1 } },
+                    { text: "Variable selon le moment", points: { ban: 2, gloxinia: 2, king: 2, meliodas: 1 } },
+                    { text: "Contenu et maîtrisé", points: { nanashi: 3, monspiet: 3, mael: 1, ludociel: 1 } }
+                ]
+            },
+            {
+                question: "Ce qui te définit le mieux :",
+                answers: [
+                    { text: "Impressionnant", points: { escanor: 3, ludociel: 2, mael: 2, gloxinia: 1 } },
+                    { text: "Fiable", points: { meliodas: 3, drole: 3, king: 2, ban: 2 } },
+                    { text: "Maîtrisé", points: { nanashi: 3, monspiet: 3, ludociel: 2, gloxinia: 2 } },
+                    { text: "Fier", points: { escanor: 3, gloxinia: 2, mael: 2, ludociel: 1 } },
+                    { text: "Mystérieux", points: { nanashi: 3, monspiet: 2, gloxinia: 1, king: 1 } }
+                ]
+            }
+        ];
+
+        // PERSONNAGES SEVEN DEADLY SINS
+        const charactersSevensins = {
+            meliodas: {
+                name: "Meliodas",
+                emoji: "😈",
+                description: "Tu es le leader naturel et protecteur ! Calme mais déterminé, tu places la loyauté et la protection des tiens au-dessus de tout. Ton charisme naturel et ta force cachée font de toi un véritable pilier.",
+                traits: ["Leader naturel", "Protecteur", "Calme", "Loyal envers ses proches"]
+            },
+            escanor: {
+                name: "Escanor",
+                emoji: "☀️",
+                description: "Tu es la fierté incarnée ! Ta confiance en toi est impressionnante et tu imposes naturellement le respect. Direct et charismatique, tu n'as peur de rien et tu assumes pleinement ta grandeur.",
+                traits: ["Confiant", "Fier", "Impressionnant", "Charismatique"]
+            },
+            mael: {
+                name: "Mael du Soleil",
+                emoji: "✨",
+                description: "Tu es le guerrier juste et discipliné ! Sérieux et réfléchi, tu agis toujours selon tes principes. Ta puissance est égalée seulement par ta droiture et ton sens du devoir.",
+                traits: ["Juste", "Sérieux", "Puissant", "Discipliné"]
+            },
+            ban: {
+                name: "Ban",
+                emoji: "😏",
+                description: "Tu es l'esprit libre et indomptable ! Indépendant et franc, tu ne te plies devant personne. Ta loyauté envers ceux qui comptent est absolue, et ta résilience légendaire.",
+                traits: ["Indépendant", "Endurant", "Loyal", "Résilient"]
+            },
+            king: {
+                name: "King",
+                emoji: "🦋",
+                description: "Tu es le protecteur sensible et dévoué ! Responsable et réservé, tu prends soin de ceux que tu aimes avec une tendresse infinie. Ta force se cache derrière ta douceur apparente.",
+                traits: ["Protecteur", "Sensible", "Responsable", "Dévoué"]
+            },
+            drole: {
+                name: "Drole le Géant",
+                emoji: "🗿",
+                description: "Tu es le pilier honorable et stable ! Patient et courageux, tu incarnes la fiabilité absolue. Ton calme et ta sagesse font de toi quelqu'un sur qui on peut toujours compter.",
+                traits: ["Honorable", "Stable", "Patient", "Fiable"]
+            },
+            gloxinia: {
+                name: "Gloxinia",
+                emoji: "🌺",
+                description: "Tu es le stratège agile et observateur ! Intelligent et fier, tu analyses chaque situation avant d'agir. Ta fierté n'a d'égale que ton esprit tactique aiguisé.",
+                traits: ["Agile", "Intelligent", "Fier", "Stratège"]
+            },
+            ludociel: {
+                name: "Ludociel",
+                emoji: "⚜️",
+                description: "Tu es l'autorité organisée et décidée ! Calculateur et strict, tu imposes l'ordre avec une main de fer. Ton sens de l'organisation et ta détermination sont inébranlables.",
+                traits: ["Autoritaire", "Calculateur", "Organisé", "Décidé"]
+            },
+            monspiet: {
+                name: "Monspiet de la Réticence",
+                emoji: "🌙",
+                description: "Tu es le sage calme et maîtrisé ! Discret et sérieux, tu observes avant d'agir. Ta loyauté est discrète mais indéfectible, et ton calme impressionne tous ceux qui te côtoient.",
+                traits: ["Calme", "Discret", "Loyal", "Maîtrisé"]
+            },
+            nanashi: {
+                name: "Nanashi",
+                emoji: "⚔️",
+                description: "Tu es le guerrier silencieux et mystérieux ! Discipliné et concentré, tu agis avec précision. Ton mystère fascine et ta maîtrise de toi-même est absolue.",
+                traits: ["Silencieux", "Discipliné", "Observateur", "Mystérieux"]
+            }
+        };
+
+        // Démarrer le quiz
+        function startQuiz(quizType) {
+            currentQuiz = quizType;
+            currentQuestion = 0;
+            answers = [];
+            
+            if (quizType === 'bluelock') {
+                document.getElementById('homePage').style.display = 'none';
+                document.getElementById('quizPage').style.display = 'block';
+                document.getElementById('quizPage').classList.add('fade-in');
+            } else {
+                document.getElementById('homePageSins').style.display = 'none';
+                document.getElementById('quizPageSins').style.display = 'block';
+                document.getElementById('quizPageSins').classList.add('fade-in');
+                document.body.className = 'seven-sins';
+            }
+            
+            showQuestion();
+        }
+
+        // Afficher une question
+        function showQuestion() {
+            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+            const question = questions[currentQuestion];
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            
+            document.getElementById('questionText' + suffix).textContent = question.question;
+            document.getElementById('questionCounter' + suffix).textContent = 
+                `Question ${currentQuestion + 1} sur ${questions.length}`;
+            
+            // Mettre à jour la barre de progression
+            const progress = ((currentQuestion) / questions.length) * 100;
+            document.getElementById('progressBar' + suffix).style.width = progress + '%';
+            
+            // Générer les boutons de réponse
+            const container = document.getElementById('answersContainer' + suffix);
+            container.innerHTML = '';
+            
+            question.answers.forEach((answer, index) => {
+                const btn = document.createElement('button');
+                btn.className = 'answer-btn';
+                btn.textContent = answer.text;
+                btn.onclick = () => selectAnswer(index);
+                container.appendChild(btn);
+            });
+        }
+
+        // Sélectionner une réponse
+        function selectAnswer(answerIndex) {
+            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+            answers.push(questions[currentQuestion].answers[answerIndex].points);
+            currentQuestion++;
+            
+            if (currentQuestion < questions.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        // Calculer et afficher le résultat
+        function showResult() {
+            const characters = currentQuiz === 'bluelock' ? charactersBluelock : charactersSevensins;
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            
+            // Calculer les scores
+            const scores = {};
+            answers.forEach(answer => {
+                for (let type in answer) {
+                    scores[type] = (scores[type] || 0) + answer[type];
+                }
+            });
+            
+            // Trouver le type avec le score le plus élevé
+            let maxScore = 0;
+            let resultType = '';
+            for (let type in scores) {
+                if (scores[type] > maxScore) {
+                    maxScore = scores[type];
+                    resultType = type;
+                }
+            }
+            
+            // Afficher le résultat
+            const character = characters[resultType];
+            
+            if (currentQuiz === 'bluelock') {
+                document.getElementById('quizPage').style.display = 'none';
+                document.getElementById('resultPage').style.display = 'block';
+                document.getElementById('resultPage').classList.add('fade-in');
+            } else {
+                document.getElementById('quizPageSins').style.display = 'none';
+                document.getElementById('resultPageSins').style.display = 'block';
+                document.getElementById('resultPageSins').classList.add('fade-in');
+            }
+            
+            document.getElementById('resultCharacter' + suffix).textContent = character.emoji;
+            document.getElementById('resultName' + suffix).textContent = character.name;
+            document.getElementById('resultDescription' + suffix).textContent = character.description;
+            
+            // Afficher les traits
+            const traitList = document.getElementById('traitList' + suffix);
+            traitList.innerHTML = '';
+            character.traits.forEach(trait => {
+                const div = document.createElement('div');
+                div.className = 'trait-item';
+                div.textContent = trait;
+                traitList.appendChild(div);
+            });
+            
+            // Mettre la barre de progression à 100%
+            const questions = currentQuiz === 'bluelock' ? questionsBluelock : questionsSevensins;
+            document.getElementById('progressBar' + suffix).style.width = '100%';
+        }
+
+        // Recommencer le quiz
+        function restartQuiz(quizType) {
+            if (quizType === 'bluelock') {
+                document.getElementById('resultPage').style.display = 'none';
+                document.getElementById('homePage').style.display = 'block';
+                document.getElementById('homePage').classList.add('fade-in');
+            } else {
+                document.getElementById('resultPageSins').style.display = 'none';
+                document.getElementById('homePageSins').style.display = 'block';
+                document.getElementById('homePageSins').classList.add('fade-in');
+            }
+        }
+
+        // Partager le résultat
+        function shareResult() {
+            const suffix = currentQuiz === 'sevensins' ? 'Sins' : '';
+            const characterName = document.getElementById('resultName' + suffix).textContent;
+            const quizName = currentQuiz === 'bluelock' ? 'Blue Lock' : 'Seven Deadly Sins';
+            const text = `Je suis ${characterName} dans ${quizName} ! Et toi ? Fais le quiz pour le découvrir !`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Mon résultat',
+                    text: text,
+                    url: window.location.href
+                });
+            } else {
+                alert('Fonction de partage non disponible. Copie le lien : ' + window.location.href);
+            }
+        }
+    </script>
+</body>
+</html>
